@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -108,7 +109,7 @@ namespace Saltikov_Kursovay
         // Метод для поиска книги по году выпуска
         public void FindByYear(int year)
         {
-            if (year < DateTime.Now.Year - 100 || year > DateTime.Now.Year)
+            if (year < DateTime.Now.Year - 1000 || year > DateTime.Now.Year)
             {
                 Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine("Некорректный год выпуска.");
@@ -142,6 +143,42 @@ namespace Saltikov_Kursovay
             {
                 Console.WriteLine(current.Data);
                 current = current.Next;
+            }
+        }
+        public void LoadFromFile(string filePath)
+        {
+            if (File.Exists(filePath))
+            {
+                string[] lines = File.ReadAllLines(filePath);
+                foreach (string line in lines)
+                {
+                    string[] parts = line.Split(';');
+                    if (parts.Length == 3)
+                    {
+                        string title = parts[0];
+                        string author = parts[1];
+                        if (int.TryParse(parts[2], out int year))
+                        {
+                            AddBook(new Book { Title = title, Author = author, Year = year });
+                        }
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Файл не найден. Будет создан новый файл при сохранении.");
+            }
+        }
+        public void SaveToFile(string filePath)
+        {
+            using (StreamWriter writer = new StreamWriter(filePath))
+            {
+                Node current = head;
+                while (current != null)
+                {
+                    writer.WriteLine($"{current.Data.Title};{current.Data.Author};{current.Data.Year}");
+                    current = current.Next;
+                }
             }
         }
     }

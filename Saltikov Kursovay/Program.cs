@@ -10,9 +10,9 @@ namespace Saltikov_Kursovay
     {
         static void Main(string[] args)
         {
-       
+            string filePath = @"C:\Users\Pilot\Desktop\Saltikov Kursovay\File.txt";
             DoublyLinkedList library = new DoublyLinkedList();
-
+            library.LoadFromFile(filePath);
             while (true)
             {
                 Console.ForegroundColor = ConsoleColor.Blue;
@@ -45,7 +45,7 @@ namespace Saltikov_Kursovay
                         string author = Console.ReadLine();
                         Console.Write("Введите год выпуска книги: ");
                         int year;
-                        if (!int.TryParse(Console.ReadLine(), out year) || year < DateTime.Now.Year - 100 || year > DateTime.Now.Year)
+                        if (!int.TryParse(Console.ReadLine(), out year) || year < DateTime.Now.Year - 1000 || year > DateTime.Now.Year)
                         {
                             Console.ForegroundColor = ConsoleColor.Red;
                             Console.WriteLine("Некорректная дата");
@@ -94,6 +94,7 @@ namespace Saltikov_Kursovay
                         break;
 
                     case 7:
+                        library.SaveToFile(filePath);
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Программа завершена.");
                         return;

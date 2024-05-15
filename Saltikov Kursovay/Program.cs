@@ -18,14 +18,15 @@ namespace Saltikov_Kursovay
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine("\n\tМеню:");
                 Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("1. Добавить книгу");
-                Console.WriteLine("2. Удалить книгу");
-                Console.WriteLine("3. Найти книгу по автору");
-                Console.WriteLine("4. Найти книгу по названию");
-                Console.WriteLine("5. Найти книгу по году выпуска");
-                Console.WriteLine("6. Вывести все книги");
+                Console.WriteLine("1. Добавить книгу в начало списка");
+                Console.WriteLine("2. Добавить книгу в конец списка");
+                Console.WriteLine("3. Добавить книгу в позицию, отсортированную по имени в алфавитном порядке");
+                Console.WriteLine("4. Добавление книги после определенной книги");
+                Console.WriteLine("5. Добавление книги перед определенной книги");
+                Console.WriteLine("6. Удаление данных о списываемых книгах");
+                Console.WriteLine("7. Вывести сведения о налмичии книг в библиотеке, упорядоченные по годам издания");
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("7. Выход");
+                Console.WriteLine("8. Выход");
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.Write("Выберите действие: ");
                 int choice;
@@ -39,70 +40,56 @@ namespace Saltikov_Kursovay
                 switch (choice)
                 {
                     case 1:
-                        Console.Write("Введите название книги: ");
-                        string title = Console.ReadLine();
-                        Console.Write("Введите автора книги: ");
-                        string author = Console.ReadLine();
-                        Console.Write("Введите год выпуска книги: ");
-                        int year;
-                        if (!int.TryParse(Console.ReadLine(), out year) || year < DateTime.Now.Year - 1000 || year > DateTime.Now.Year)
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Некорректная дата");
-                            continue;
-                        }
-                        library.AddBook(new Book { Title = title, Author = author, Year = year });
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Книга добавлена в библиотеку.");
+                        Console.WriteLine("Добавить книгу в начало списка:");
+                        pattern.OutPut();
+                        Console.WriteLine("Чтобы продолжить нажмите: Enter");
+                        Console.ReadLine();
                         break;
-
                     case 2:
-                        Console.Write("Введите название книги для удаления: ");
-                        string titleToRemove = Console.ReadLine();
-                        library.RemoveBook(titleToRemove);
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Книга удалена из библиотеки.");
+                        Console.WriteLine("Добавить книгу в конец списка:");
+                        pattern.Start();
+                        Console.WriteLine("Чтобы продолжить нажмите: Enter");
+                        Console.ReadLine();
                         break;
-
                     case 3:
-                        Console.Write("Введите имя автора для поиска книг: ");
-                        string authorToFind = Console.ReadLine();
-                        library.FindByAuthor(authorToFind);
+                        Console.WriteLine("Добавить книгу в позицию, отсортированную по имени в алфавитном порядке:");
+                        pattern.End();
+                        Console.WriteLine("Чтобы потвердить нажмите: Enter");
+                        Console.ReadLine();
                         break;
-
                     case 4:
-                        Console.Write("Введите название книги для поиска: ");
-                        string titleToFind = Console.ReadLine();
-                        library.FindByTitle(titleToFind);
+                        Console.WriteLine("Добавление книги после определенной книги:");
+                        pattern.Middle();
+                        Console.WriteLine("Чтобы подтвердить нажмите: Enter");
+                        Console.ReadLine();
                         break;
-
                     case 5:
-                        Console.Write("Введите год выпуска книги для поиска: ");
-                        if (!int.TryParse(Console.ReadLine(), out year))
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            Console.WriteLine("Некорректные данные!");
-                            continue;
-                        }
-                        library.FindByYear(year);
+                        Console.WriteLine("Добавление книги перед определенной книги:");
+                        pattern.Before();
+                        Console.WriteLine("Чтобы подтвердить нажмите: Enter");
+                        Console.ReadLine();
                         break;
-
                     case 6:
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Список книг в библиотеке:");
-                        library.DisplayAllBooks();
+                        Console.WriteLine("Удаление данных о списываемых книгах:");
+                        pattern.Dellete();
+                        Console.WriteLine("Чтобы подтвердить нажмите: Enter");
+                        Console.ReadLine();
+                        break;
+                    case 7:
+                        Console.WriteLine("Вывести сведения о наличии книг в библиотеке, упорядоченные по годам издания:");
+                        pattern.SearchKorpus();
+                        Console.WriteLine("Чтобы продолжить нажмите: Enter");
+                        Console.ReadLine();
                         break;
 
-                    case 7:
+                    case 8:
                         library.SaveToFile(filePath);
                         Console.ForegroundColor = ConsoleColor.Red;
                         Console.WriteLine("Программа завершена.");
                         return;
 
-                    default:
-                        Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine("Выберите действие из списка.");
-                        break;
+
+
                 }
             }
         }

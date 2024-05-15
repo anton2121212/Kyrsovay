@@ -10,7 +10,7 @@ namespace Saltikov_Kursovay
     /// <summary>
     ///  Класс, представляющий сам двусвязный список
     /// </summary>
-    class DoublyLinkedList
+    public class DoublyLinkedList
     {
         private Node head;
         private Node tail;

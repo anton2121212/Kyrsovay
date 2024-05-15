@@ -11,13 +11,15 @@ namespace Saltikov_Kursovay
     /// </summary>
     class Book
     {
+        public string UDK { get; set; }
         public string Title { get; set; }
         public string Author { get; set; }
         public int Year { get; set; }
+        public int Copies { get; set; }
 
         public override string ToString()
         {
-            return $"Название: {Title}, Автор: {Author}, Год выпуска: {Year}";
+            return $"Название: {Title}, Автор: {Author}, Год выпуска: {Year}, Номер УДК: {UDK}, Кoличество экземпляров: {Copies} ";
         }
     }
 }
